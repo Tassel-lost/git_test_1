@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -63,7 +64,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-uint8_t counter=0;
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -74,7 +75,7 @@ uint8_t counter=0;
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+uint16_t counter=0;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -86,6 +87,7 @@ uint8_t counter=0;
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
@@ -112,8 +114,8 @@ uint8_t counter=0;
     else
     {
       if (counter==0)HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-
-      HAL_Delay(350);
+      else HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
+      HAL_Delay(200);
     }
 
   }
