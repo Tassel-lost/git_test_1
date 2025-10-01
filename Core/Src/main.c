@@ -112,8 +112,8 @@ uint8_t counter=0;
     else
     {
       if (counter==0)HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-      else HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
-      HAL_Delay(750);
+      else HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+      HAL_Delay(350);
     }
 
   }
