@@ -6,6 +6,7 @@
 "led_1\tim.o"
 "led_1\stm32f4xx_it.o"
 "led_1\stm32f4xx_hal_msp.o"
+"led_1\callback.o"
 "led_1\stm32f4xx_hal_iwdg.o"
 "led_1\stm32f4xx_hal_rcc.o"
 "led_1\stm32f4xx_hal_rcc_ex.o"
