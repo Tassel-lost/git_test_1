@@ -61,10 +61,14 @@ void Error_Handler(void);
 #define S1_GPIO_Port GPIOB
 #define buzzer_Pin GPIO_PIN_6
 #define buzzer_GPIO_Port GPIOH
+#define TX_Pin GPIO_PIN_8
+#define TX_GPIO_Port GPIOE
 #define LED1_Pin GPIO_PIN_11
 #define LED1_GPIO_Port GPIOE
 #define LED0_Pin GPIO_PIN_14
 #define LED0_GPIO_Port GPIOF
+#define RX_Pin GPIO_PIN_7
+#define RX_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
 
