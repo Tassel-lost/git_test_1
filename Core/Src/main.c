@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "iwdg.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -256,12 +257,13 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM1_Init();
   MX_TIM12_Init();
+  MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
   HAL_TIM_Base_Start(&htim1);
   HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_1);
+  //HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -276,9 +278,15 @@ int main(void)
   //   HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
 		// HAL_Delay(1000);
     tick=HAL_GetTick();
-    for (int i=0;i<10000;i+=2000) {
+    for (int i=0;i<10000;i+=200) {
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,i);
-      HAL_Delay(1000);
+      if (HAL_GPIO_ReadPin(S1_GPIO_Port,S1_Pin)) {HAL_IWDG_Refresh(&hiwdg);}
+      HAL_Delay(200);
+    }
+    for (int i=0;i<10000;i+=200) {
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,10000-i);
+      if (HAL_GPIO_ReadPin(S1_GPIO_Port,S1_Pin)) {HAL_IWDG_Refresh(&hiwdg);}
+      HAL_Delay(200);
     }
 
 
@@ -303,8 +311,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 6;
