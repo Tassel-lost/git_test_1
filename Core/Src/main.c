@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -214,7 +215,7 @@ uint32_t tick=0;
 //   { E6, 1 }, { D6, 0.5 }, { C6, 1 }, { D6, 0.5 }, { E6, 0.75 }, { F6, 0.25 }, { E6, 0.5 }, { D6, 1.5 },
 // };
 
-uint8_t rx_buffer[4]={0};
+uint8_t rx_buffer[20]={0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -257,6 +258,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_TIM1_Init();
   MX_TIM12_Init();
   MX_UART7_Init();
@@ -269,7 +271,7 @@ int main(void)
   //__HAL_UART_ENABLE_IT(&huart7,U)
   //HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_1);
   //HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_1);
-  HAL_UART_Receive_IT(&huart7,rx_buffer,1);
+  HAL_UART_Receive_IT(&huart7,rx_buffer,4);
   /* USER CODE END 2 */
 
   /* Infinite loop */

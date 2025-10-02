@@ -3,6 +3,7 @@
 "led_1\callback.o"
 "led_1\main.o"
 "led_1\gpio.o"
+"led_1\dma.o"
 "led_1\tim.o"
 "led_1\usart.o"
 "led_1\stm32f4xx_it.o"
