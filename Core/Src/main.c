@@ -213,6 +213,8 @@ uint32_t tick=0;
 // inline MusicNote music_haruhikage_notes[] = {
 //   { E6, 1 }, { D6, 0.5 }, { C6, 1 }, { D6, 0.5 }, { E6, 0.75 }, { F6, 0.25 }, { E6, 0.5 }, { D6, 1.5 },
 // };
+
+uint8_t rx_buffer[4]={0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -264,8 +266,10 @@ int main(void)
   HAL_TIM_Base_Start(&htim1);
   HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
   //__HAL_TIM_ENABLE_IT(&htim1,TIM_IT_UPDATE);
-
+  //__HAL_UART_ENABLE_IT(&huart7,U)
   //HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_1);
+  //HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_1);
+  HAL_UART_Receive_IT(&huart7,rx_buffer,1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -277,18 +281,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
     tick=HAL_GetTick();
-    HAL_UART_Transmit(&huart7, tx_message, 10, 1000);
-    HAL_Delay(1000);
-    // for (int i=0;i<10000;i+=200) {
-    //   __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,i);
-    //   if (HAL_GPIO_ReadPin(S1_GPIO_Port,S1_Pin)) {HAL_IWDG_Refresh(&hiwdg);}
-    //   HAL_Delay(200);
-    // }
-    // for (int i=0;i<10000;i+=200) {
-    //   __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,10000-i);
-    //   if (HAL_GPIO_ReadPin(S1_GPIO_Port,S1_Pin)) {HAL_IWDG_Refresh(&hiwdg);}
-    //   HAL_Delay(200);
-    // }
+
+    // HAL_UART_Transmit(&huart7, tx_message, 10, 1000);
+    // HAL_Delay(1000);
 
 
   }
